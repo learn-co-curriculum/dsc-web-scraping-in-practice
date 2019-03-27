@@ -1077,3 +1077,1184 @@ This will also reveal underlying `divs`, `headers` and other containers the web 
 <img src="images/book_img.png">
 
 ## Selecting a Container
+
+While you're eventually looking to select each of the individual books, its often easier to start with an encapsulating container. In this case, the `section`, displayed above. Once you select this container, you can then make sub selections within it to find the relevant information you are searching for. In this case, the warning just above the div for the books is easy to identify. You can start by selecting this element and then navigating to the next div element.
+
+
+```python
+warning = soup.find('div', class_="alert alert-warning")
+warning #Previewing is optional but can help you verify you are selecting what you think you are
+```
+
+
+
+
+    <div class="alert alert-warning" role="alert"><strong>Warning!</strong> This is a demo website for web scraping purposes. Prices and ratings here were randomly assigned and have no real meaning.</div>
+
+
+
+## Traversing the Soup
+
+Now, you can navigate to the section using the next sibling method. (In actuality you need to use nextSibling twice in this case.)
+
+
+```python
+book_container = warning.nextSibling.nextSibling
+book_container
+```
+
+
+
+
+    <div>
+    <ol class="row">
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/a-light-in-the-attic_1000/index.html"><img alt="A Light in the Attic" class="thumbnail" src="media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg"/></a>
+    </div>
+    <p class="star-rating Three">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/a-light-in-the-attic_1000/index.html" title="A Light in the Attic">A Light in the ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£51.77</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/tipping-the-velvet_999/index.html"><img alt="Tipping the Velvet" class="thumbnail" src="media/cache/26/0c/260c6ae16bce31c8f8c95daddd9f4a1c.jpg"/></a>
+    </div>
+    <p class="star-rating One">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/tipping-the-velvet_999/index.html" title="Tipping the Velvet">Tipping the Velvet</a></h3>
+    <div class="product_price">
+    <p class="price_color">£53.74</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/soumission_998/index.html"><img alt="Soumission" class="thumbnail" src="media/cache/3e/ef/3eef99c9d9adef34639f510662022830.jpg"/></a>
+    </div>
+    <p class="star-rating One">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/soumission_998/index.html" title="Soumission">Soumission</a></h3>
+    <div class="product_price">
+    <p class="price_color">£50.10</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/sharp-objects_997/index.html"><img alt="Sharp Objects" class="thumbnail" src="media/cache/32/51/3251cf3a3412f53f339e42cac2134093.jpg"/></a>
+    </div>
+    <p class="star-rating Four">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/sharp-objects_997/index.html" title="Sharp Objects">Sharp Objects</a></h3>
+    <div class="product_price">
+    <p class="price_color">£47.82</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/sapiens-a-brief-history-of-humankind_996/index.html"><img alt="Sapiens: A Brief History of Humankind" class="thumbnail" src="media/cache/be/a5/bea5697f2534a2f86a3ef27b5a8c12a6.jpg"/></a>
+    </div>
+    <p class="star-rating Five">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/sapiens-a-brief-history-of-humankind_996/index.html" title="Sapiens: A Brief History of Humankind">Sapiens: A Brief History ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£54.23</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/the-requiem-red_995/index.html"><img alt="The Requiem Red" class="thumbnail" src="media/cache/68/33/68339b4c9bc034267e1da611ab3b34f8.jpg"/></a>
+    </div>
+    <p class="star-rating One">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/the-requiem-red_995/index.html" title="The Requiem Red">The Requiem Red</a></h3>
+    <div class="product_price">
+    <p class="price_color">£22.65</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html"><img alt="The Dirty Little Secrets of Getting Your Dream Job" class="thumbnail" src="media/cache/92/27/92274a95b7c251fea59a2b8a78275ab4.jpg"/></a>
+    </div>
+    <p class="star-rating Four">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html" title="The Dirty Little Secrets of Getting Your Dream Job">The Dirty Little Secrets ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£33.34</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/the-coming-woman-a-novel-based-on-the-life-of-the-infamous-feminist-victoria-woodhull_993/index.html"><img alt="The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull" class="thumbnail" src="media/cache/3d/54/3d54940e57e662c4dd1f3ff00c78cc64.jpg"/></a>
+    </div>
+    <p class="star-rating Three">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/the-coming-woman-a-novel-based-on-the-life-of-the-infamous-feminist-victoria-woodhull_993/index.html" title="The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull">The Coming Woman: A ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£17.93</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics_992/index.html"><img alt="The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics" class="thumbnail" src="media/cache/66/88/66883b91f6804b2323c8369331cb7dd1.jpg"/></a>
+    </div>
+    <p class="star-rating Four">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics_992/index.html" title="The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics">The Boys in the ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£22.60</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/the-black-maria_991/index.html"><img alt="The Black Maria" class="thumbnail" src="media/cache/58/46/5846057e28022268153beff6d352b06c.jpg"/></a>
+    </div>
+    <p class="star-rating One">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/the-black-maria_991/index.html" title="The Black Maria">The Black Maria</a></h3>
+    <div class="product_price">
+    <p class="price_color">£52.15</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/starving-hearts-triangular-trade-trilogy-1_990/index.html"><img alt="Starving Hearts (Triangular Trade Trilogy, #1)" class="thumbnail" src="media/cache/be/f4/bef44da28c98f905a3ebec0b87be8530.jpg"/></a>
+    </div>
+    <p class="star-rating Two">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/starving-hearts-triangular-trade-trilogy-1_990/index.html" title="Starving Hearts (Triangular Trade Trilogy, #1)">Starving Hearts (Triangular Trade ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£13.99</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/shakespeares-sonnets_989/index.html"><img alt="Shakespeare's Sonnets" class="thumbnail" src="media/cache/10/48/1048f63d3b5061cd2f424d20b3f9b666.jpg"/></a>
+    </div>
+    <p class="star-rating Four">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/shakespeares-sonnets_989/index.html" title="Shakespeare's Sonnets">Shakespeare's Sonnets</a></h3>
+    <div class="product_price">
+    <p class="price_color">£20.66</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/set-me-free_988/index.html"><img alt="Set Me Free" class="thumbnail" src="media/cache/5b/88/5b88c52633f53cacf162c15f4f823153.jpg"/></a>
+    </div>
+    <p class="star-rating Five">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/set-me-free_988/index.html" title="Set Me Free">Set Me Free</a></h3>
+    <div class="product_price">
+    <p class="price_color">£17.46</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html"><img alt="Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)" class="thumbnail" src="media/cache/94/b1/94b1b8b244bce9677c2f29ccc890d4d2.jpg"/></a>
+    </div>
+    <p class="star-rating Five">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html" title="Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)">Scott Pilgrim's Precious Little ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£52.29</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/rip-it-up-and-start-again_986/index.html"><img alt="Rip it Up and Start Again" class="thumbnail" src="media/cache/81/c4/81c4a973364e17d01f217e1188253d5e.jpg"/></a>
+    </div>
+    <p class="star-rating Five">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/rip-it-up-and-start-again_986/index.html" title="Rip it Up and Start Again">Rip it Up and ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£35.02</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html"><img alt="Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991" class="thumbnail" src="media/cache/54/60/54607fe8945897cdcced0044103b10b6.jpg"/></a>
+    </div>
+    <p class="star-rating Three">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html" title="Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991">Our Band Could Be ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£57.25</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/olio_984/index.html"><img alt="Olio" class="thumbnail" src="media/cache/55/33/553310a7162dfbc2c6d19a84da0df9e1.jpg"/></a>
+    </div>
+    <p class="star-rating One">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/olio_984/index.html" title="Olio">Olio</a></h3>
+    <div class="product_price">
+    <p class="price_color">£23.88</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html"><img alt="Mesaerion: The Best Science Fiction Stories 1800-1849" class="thumbnail" src="media/cache/09/a3/09a3aef48557576e1a85ba7efea8ecb7.jpg"/></a>
+    </div>
+    <p class="star-rating One">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html" title="Mesaerion: The Best Science Fiction Stories 1800-1849">Mesaerion: The Best Science ...</a></h3>
+    <div class="product_price">
+    <p class="price_color">£37.59</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/libertarianism-for-beginners_982/index.html"><img alt="Libertarianism for Beginners" class="thumbnail" src="media/cache/0b/bc/0bbcd0a6f4bcd81ccb1049a52736406e.jpg"/></a>
+    </div>
+    <p class="star-rating Two">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/libertarianism-for-beginners_982/index.html" title="Libertarianism for Beginners">Libertarianism for Beginners</a></h3>
+    <div class="product_price">
+    <p class="price_color">£51.33</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+    <article class="product_pod">
+    <div class="image_container">
+    <a href="catalogue/its-only-the-himalayas_981/index.html"><img alt="It's Only the Himalayas" class="thumbnail" src="media/cache/27/a5/27a53d0bb95bdd88288eaf66c9230d7e.jpg"/></a>
+    </div>
+    <p class="star-rating Two">
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    <i class="icon-star"></i>
+    </p>
+    <h3><a href="catalogue/its-only-the-himalayas_981/index.html" title="It's Only the Himalayas">It's Only the Himalayas</a></h3>
+    <div class="product_price">
+    <p class="price_color">£45.17</p>
+    <p class="instock availability">
+    <i class="icon-ok"></i>
+        
+            In stock
+        
+    </p>
+    <form>
+    <button class="btn btn-primary btn-block" data-loading-text="Adding..." type="submit">Add to basket</button>
+    </form>
+    </div>
+    </article>
+    </li>
+    </ol>
+    <div>
+    <ul class="pager">
+    <li class="current">
+                
+                    Page 1 of 50
+                
+                </li>
+    <li class="next"><a href="catalogue/page-2.html">next</a></li>
+    </ul>
+    </div>
+    </div>
+
+
+
+Now that you have the master container with all of the books of interest, you can then search within this smaller block to extract the relevant information. If you take a look at the preview above, you should see that each of the books is referenced twice: first as a simple link via an `a` tage and then again nested within an `h3` tag. You could therefore select all of the `a` tags and simply extract every other block of code, although this could be brittle and prone to error. A more reliable method therefore might by to select only the `img` tags or only the `h3` tags. As you are starting to see, web scraping is a back and forth process of investigating a page and generalizing its structure.  
+
+Generally this is best done with a little trial and error: make a selection, preview it, and continue slicing down until you have what you're after.
+
+
+```python
+titles = book_container.findAll('h3') #Make a selection
+titles[0] #Preview the first entry it
+```
+
+
+
+
+    <h3><a href="catalogue/a-light-in-the-attic_1000/index.html" title="A Light in the Attic">A Light in the ...</a></h3>
+
+
+
+Looks like you need to further slice into these `h3` tags:
+
+
+```python
+titles[0].find('a')
+```
+
+
+
+
+    <a href="catalogue/a-light-in-the-attic_1000/index.html" title="A Light in the Attic">A Light in the ...</a>
+
+
+
+Closer. Once you make it down to a single tag that's not nested, you can use the `.attrs` attribute to pull up a dictionary of the tag's attributes. In this case, you're looking for the title:
+
+
+```python
+titles[0].find('a').attrs['title']
+```
+
+
+
+
+    'A Light in the Attic'
+
+
+
+Great! Now that you've done some exploration to find what you were after, you can formalize the process and put it all together.
+
+
+```python
+final_titles = [h3.find('a').attrs['title'] for h3 in book_container.findAll('h3')]
+print(len(final_titles), final_titles[:5])
+```
+
+    20 ['A Light in the Attic', 'Tipping the Velvet', 'Soumission', 'Sharp Objects', 'Sapiens: A Brief History of Humankind']
+
+
+## Passing Regex Expressions
+
+Another useful feature is passing regex expressions into a Find statment. For example, you may have noticed that the star ratings for each of the books is encapsulated within a p tag whose class reads "star-rating ...". Let's take a look at how you could extract these features.
+
+
+```python
+import re
+```
+
+
+```python
+regex = re.compile("star-rating (.*)")
+book_container.findAll('p', {"class" : regex}) #Initial Trial in developing the script
+```
+
+
+
+
+    [<p class="star-rating Three">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating One">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating One">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Four">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Five">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating One">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Four">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Three">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Four">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating One">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Two">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Four">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Five">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Five">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Five">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Three">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating One">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating One">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Two">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>, <p class="star-rating Two">
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     <i class="icon-star"></i>
+     </p>]
+
+
+
+As you can see, as before, you need to navigate a little further in order to remove the extraneous information.
+
+
+```python
+star_ratings = []
+for p in book_container.findAll('p', {"class" : regex}):
+    star_ratings.append(p.attrs['class'][-1])
+star_ratings
+```
+
+
+
+
+    ['Three',
+     'One',
+     'One',
+     'Four',
+     'Five',
+     'One',
+     'Four',
+     'Three',
+     'Four',
+     'One',
+     'Two',
+     'Four',
+     'Five',
+     'Five',
+     'Five',
+     'Three',
+     'One',
+     'One',
+     'Two',
+     'Two']
+
+
+
+As you can see, even here we have strings whereas integers would probably be a more useful representation so you may still have to do some further data transformations.
+
+
+```python
+star_dict = {'One': 1, 'Two': 2, 'Three':3, 'Four': 4, 'Five':5}
+star_ratings = [star_dict[s] for s in star_ratings]
+star_ratings
+```
+
+
+
+
+    [3, 1, 1, 4, 5, 1, 4, 3, 4, 1, 2, 4, 5, 5, 5, 3, 1, 1, 2, 2]
+
+
+
+## Further Practice
+
+You're definitely making some progress here! Let's take a look at extracting two more pieces of information: the price and availability.
+
+
+```python
+book_container.findAll('p', class_="price_color") #First preview
+```
+
+
+
+
+    [<p class="price_color">£51.77</p>,
+     <p class="price_color">£53.74</p>,
+     <p class="price_color">£50.10</p>,
+     <p class="price_color">£47.82</p>,
+     <p class="price_color">£54.23</p>,
+     <p class="price_color">£22.65</p>,
+     <p class="price_color">£33.34</p>,
+     <p class="price_color">£17.93</p>,
+     <p class="price_color">£22.60</p>,
+     <p class="price_color">£52.15</p>,
+     <p class="price_color">£13.99</p>,
+     <p class="price_color">£20.66</p>,
+     <p class="price_color">£17.46</p>,
+     <p class="price_color">£52.29</p>,
+     <p class="price_color">£35.02</p>,
+     <p class="price_color">£57.25</p>,
+     <p class="price_color">£23.88</p>,
+     <p class="price_color">£37.59</p>,
+     <p class="price_color">£51.33</p>,
+     <p class="price_color">£45.17</p>]
+
+
+
+
+```python
+prices = [p.text for p in book_container.findAll('p', class_="price_color")]
+print(len(prices), prices[:5])
+```
+
+    20 ['£51.77', '£53.74', '£50.10', '£47.82', '£54.23']
+
+
+
+```python
+prices = [float(p[1:]) for p in prices] #Removing the pound sign and converting to float
+print(len(prices), prices[:5])
+```
+
+    20 [51.77, 53.74, 50.1, 47.82, 54.23]
+
+
+Hopefully the process is starting to feel a bit smoother.
+
+
+```python
+avails = book_container.findAll('p', class_="instock availability")
+avails[:5]
+```
+
+
+
+
+    [<p class="instock availability">
+     <i class="icon-ok"></i>
+         
+             In stock
+         
+     </p>, <p class="instock availability">
+     <i class="icon-ok"></i>
+         
+             In stock
+         
+     </p>, <p class="instock availability">
+     <i class="icon-ok"></i>
+         
+             In stock
+         
+     </p>, <p class="instock availability">
+     <i class="icon-ok"></i>
+         
+             In stock
+         
+     </p>, <p class="instock availability">
+     <i class="icon-ok"></i>
+         
+             In stock
+         
+     </p>]
+
+
+
+
+```python
+avails[0].text
+```
+
+
+
+
+    '\n\n    \n        In stock\n    \n'
+
+
+
+
+```python
+avails = [a.text.strip() for a in book_container.findAll('p', class_="instock availability")]
+print(len(avails), avails[:5])
+```
+
+    20 ['In stock', 'In stock', 'In stock', 'In stock', 'In stock']
+
+
+## Putting it All Together
+
+Now that you have the relevant information, it's time to put it all together into a dataset!
+
+
+```python
+import pandas as pd
+```
+
+
+```python
+df = pd.DataFrame([final_titles, star_ratings, prices, avails]).transpose()
+df.columns = ['Title', 'Star_Rating', 'Price_(pounds)', 'Availability']
+df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Title</th>
+      <th>Star_Rating</th>
+      <th>Price_(pounds)</th>
+      <th>Availability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A Light in the Attic</td>
+      <td>3</td>
+      <td>51.77</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Tipping the Velvet</td>
+      <td>1</td>
+      <td>53.74</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Soumission</td>
+      <td>1</td>
+      <td>50.1</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Sharp Objects</td>
+      <td>4</td>
+      <td>47.82</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Sapiens: A Brief History of Humankind</td>
+      <td>5</td>
+      <td>54.23</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>The Requiem Red</td>
+      <td>1</td>
+      <td>22.65</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>The Dirty Little Secrets of Getting Your Dream...</td>
+      <td>4</td>
+      <td>33.34</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>The Coming Woman: A Novel Based on the Life of...</td>
+      <td>3</td>
+      <td>17.93</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>The Boys in the Boat: Nine Americans and Their...</td>
+      <td>4</td>
+      <td>22.6</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>The Black Maria</td>
+      <td>1</td>
+      <td>52.15</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Starving Hearts (Triangular Trade Trilogy, #1)</td>
+      <td>2</td>
+      <td>13.99</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Shakespeare's Sonnets</td>
+      <td>4</td>
+      <td>20.66</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Set Me Free</td>
+      <td>5</td>
+      <td>17.46</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Scott Pilgrim's Precious Little Life (Scott Pi...</td>
+      <td>5</td>
+      <td>52.29</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Rip it Up and Start Again</td>
+      <td>5</td>
+      <td>35.02</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Our Band Could Be Your Life: Scenes from the A...</td>
+      <td>3</td>
+      <td>57.25</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Olio</td>
+      <td>1</td>
+      <td>23.88</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Mesaerion: The Best Science Fiction Stories 18...</td>
+      <td>1</td>
+      <td>37.59</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Libertarianism for Beginners</td>
+      <td>2</td>
+      <td>51.33</td>
+      <td>In stock</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>It's Only the Himalayas</td>
+      <td>2</td>
+      <td>45.17</td>
+      <td>In stock</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+ls images/
+```
+
+    DOM-model.svg.png  book_img.png       sidebar.png
+    book-section.png   pager.png
+
+
+## Pagination and URL Hacking
+
+Now that you have successfully scraped one page of books, the next logical step is to extrapolate this to successive pages. In general, the two most common approaches are to search for a button that will take you to the next page or to investigate the structure of the page urls. For example, at the bottom of the page you should see a button like this:
+
+<img src="images/pager.png">
+
+As you can see, this portion contains a link to the next page of the book listings. What's more, is that you can also see that the next pages are easy to anticipate the url for. They're simply:
+
+* http://books.toscrape.com/catalogue/page-2.html
+* http://books.toscrape.com/catalogue/page-3.html
+* http://books.toscrape.com/catalogue/page-4.html
+* etc. 
+
+In more complex examples, you would simply have to use selections such as those for the title, price, star rating and availability to retrieve the url of the next page. However, in simple cases like this, it is possible to simply hardwire the page urls in a for loop. In the upcoming lab, you'll formalize this knowledge by writing a script to scrape all 50 pages from the site. The pseudocode will look something like this:  
+
+```python
+df = pd.DataFrame()
+for i in range(2,51):
+    url = "http://books.toscrape.com/catalogue/page-{}.html".format(i)
+    soup = BeautifulSoup(html_page.content, 'html.parser')
+    warning = soup.find('div', class_="alert alert-warning")
+    book_container = warning.nextSibling.nextSibling
+    new_titles = retrieve_titles(book_container)
+    new_star_ratings = retrieve_ratings(book_container)
+    new_prices = retrieve_prices(book_container)
+    new_avails = retrieve_avails(book_container)
+    ...
+ ```
+
+## Summary 
+
+Well done! In this lesson you took a look at some methods for traversing and dissecting a web page with beautiful soup! In the upcoming lab, you'll continue to formalize this turning the current script into modularized functions which you can then use to scrape all of the information from all 50 pages of the book listings.
