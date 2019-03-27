@@ -1067,8 +1067,8 @@ As you can see, there's a lot going on in a production level HTML page. Rather t
 ls images
 ```
 
-    DOM-model.svg.png  book-section.png   pager.png
-    [1m[36mazlyrics_images[m[m/   book_img.png       sidebar.png
+    DOM-model.svg.png  book_img.png       sidebar.png
+    book-section.png   pager.png
 
 
 This will also reveal underlying `divs`, `headers` and other containers the web designers have used to organize their web pages.
@@ -1099,7 +1099,8 @@ Now, you can navigate to the section using the next sibling method. (In actualit
 
 
 ```python
-book_container = warning.nextSibling.nextSibling
+#This code is a bit brittle but works for now; in general ask, are you confident that this will work for all pages?
+book_container = warning.nextSibling.nextSibling 
 book_container
 ```
 
@@ -1901,7 +1902,7 @@ As you can see, even here we have strings whereas integers would probably be a m
 
 
 ```python
-star_dict = {'One': 1, 'Two': 2, 'Three':3, 'Four': 4, 'Five':5}
+star_dict = {'One': 1, 'Two': 2, 'Three':3, 'Four': 4, 'Five':5} #Manually create a dictionary to translate to numeric
 star_ratings = [star_dict[s] for s in star_ratings]
 star_ratings
 ```
@@ -1950,7 +1951,7 @@ book_container.findAll('p', class_="price_color") #First preview
 
 
 ```python
-prices = [p.text for p in book_container.findAll('p', class_="price_color")]
+prices = [p.text for p in book_container.findAll('p', class_="price_color")] #Keep cleaning it up
 print(len(prices), prices[:5])
 ```
 
@@ -1971,7 +1972,7 @@ Hopefully the process is starting to feel a bit smoother.
 
 ```python
 avails = book_container.findAll('p', class_="instock availability")
-avails[:5]
+avails[:5] #Preview our selection
 ```
 
 
@@ -2008,7 +2009,7 @@ avails[:5]
 
 
 ```python
-avails[0].text
+avails[0].text #Dig a little deeper into the structure
 ```
 
 
@@ -2020,7 +2021,7 @@ avails[0].text
 
 
 ```python
-avails = [a.text.strip() for a in book_container.findAll('p', class_="instock availability")]
+avails = [a.text.strip() for a in book_container.findAll('p', class_="instock availability")] #Finalize the selection
 print(len(avails), avails[:5])
 ```
 
@@ -2217,15 +2218,6 @@ df
 
 
 
-
-```python
-ls images/
-```
-
-    DOM-model.svg.png  book_img.png       sidebar.png
-    book-section.png   pager.png
-
-
 ## Pagination and URL Hacking
 
 Now that you have successfully scraped one page of books, the next logical step is to extrapolate this to successive pages. In general, the two most common approaches are to search for a button that will take you to the next page or to investigate the structure of the page urls. For example, at the bottom of the page you should see a button like this:
@@ -2245,6 +2237,7 @@ In more complex examples, you would simply have to use selections such as those 
 df = pd.DataFrame()
 for i in range(2,51):
     url = "http://books.toscrape.com/catalogue/page-{}.html".format(i)
+    html_page = requests.get(url)
     soup = BeautifulSoup(html_page.content, 'html.parser')
     warning = soup.find('div', class_="alert alert-warning")
     book_container = warning.nextSibling.nextSibling
