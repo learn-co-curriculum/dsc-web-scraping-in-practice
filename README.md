@@ -1,9 +1,9 @@
 
-# Beautiful Soup in Practice
+# Web Scraping In Practice
 
 ## Introduction
 
-Now that you've gotten a brief introduction to Beautiful Soup and how to select various elements from a web page, its time to practice a hands on case of scraping a website. You'll start to see that scraping is a dynamic process that involves investigating the web page(s) at hand and developing scripts tailored to those structures.
+Now that you've gotten a brief introduction to Beautiful Soup and how to select various elements from a web page, its time to practice a hands-on case of scraping a website. You'll start to see that scraping is a dynamic process that involves investigating the web page(s) at hand and developing scripts tailored to those structures.
 
 ## Objectives
 
@@ -21,7 +21,7 @@ import requests
 
 ## Grabbing an HTML Page
 
-To start, here's how to retrieve an arbitrary web page and load it's content into Beautiful Soup for parsing. You first use the requests package to pull the html itself and then pass that data to beautiful soup.
+To start, here's how to retrieve an arbitrary web page and load its content into Beautiful Soup for parsing. You first use the requests package to pull the html itself and then pass that data to beautiful soup.
 
 
 ```python
@@ -1078,7 +1078,7 @@ This will also reveal underlying `divs`, `headers` and other containers the web 
 
 ## Selecting a Container
 
-While you're eventually looking to select each of the individual books, its often easier to start with an encapsulating container. In this case, the `section`, displayed above. Once you select this container, you can then make sub selections within it to find the relevant information you are searching for. In this case, the warning just above the div for the books is easy to identify. You can start by selecting this element and then navigating to the next div element.
+While you're eventually looking to select each of the individual books, it's often easier to start with an encapsulating container. In this case, the `section`, displayed above. Once you select this container, you can then make sub-selections within it to find the relevant information you are searching for. In this case, the warning just above the div for the books is easy to identify. You can start by selecting this element and then navigating to the next div element.
 
 
 ```python
@@ -1099,7 +1099,7 @@ Now, you can navigate to the section using the next sibling method. (In actualit
 
 
 ```python
-#This code is a bit brittle but works for now; in general ask, are you confident that this will work for all pages?
+#This code is a bit brittle but works for now; in general, ask, are you confident that this will work for all pages?
 book_container = warning.nextSibling.nextSibling 
 book_container
 ```
@@ -1664,9 +1664,9 @@ book_container
 
 
 
-Now that you have the master container with all of the books of interest, you can then search within this smaller block to extract the relevant information. If you take a look at the preview above, you should see that each of the books is referenced twice: first as a simple link via an `a` tage and then again nested within an `h3` tag. You could therefore select all of the `a` tags and simply extract every other block of code, although this could be brittle and prone to error. A more reliable method therefore might by to select only the `img` tags or only the `h3` tags. As you are starting to see, web scraping is a back and forth process of investigating a page and generalizing its structure.  
+Now that you have the master container with all of the books of interest, you can then search within this smaller block to extract the relevant information. If you take a look at the preview above, you should see that each of the books is referenced twice: first as a simple link via an `a` tag and then again nested within an `h3` tag. You could, therefore, select all of the `a` tags and simply extract every other block of code, although this could be brittle and prone to error. A more reliable method would be to select only the `img` tags or only the `h3` tags. As you are starting to see, web scraping is a back and forth process of investigating a page and generalizing its structure.  
 
-Generally this is best done with a little trial and error: make a selection, preview it, and continue slicing down until you have what you're after.
+Generally, this is best done with a little trial and error: make a selection, preview it, and continue slicing down until you have what you're after.
 
 
 ```python
@@ -1722,7 +1722,7 @@ print(len(final_titles), final_titles[:5])
 
 ## Passing Regex Expressions
 
-Another useful feature is passing regex expressions into a Find statment. For example, you may have noticed that the star ratings for each of the books is encapsulated within a p tag whose class reads "star-rating ...". Let's take a look at how you could extract these features.
+Another useful feature is passing regex expressions into a Find statement. For example, you may have noticed that the star ratings for each of the books are encapsulated within a p tag whose class reads "star-rating ...". Let's take a look at how you could extract these features.
 
 
 ```python
@@ -1967,7 +1967,7 @@ print(len(prices), prices[:5])
     20 [51.77, 53.74, 50.1, 47.82, 54.23]
 
 
-Hopefully the process is starting to feel a bit smoother.
+Hopefully, the process is starting to feel a bit smoother.
 
 
 ```python
@@ -2250,4 +2250,4 @@ for i in range(2,51):
 
 ## Summary 
 
-Well done! In this lesson you took a look at some methods for traversing and dissecting a web page with beautiful soup! In the upcoming lab, you'll continue to formalize this turning the current script into modularized functions which you can then use to scrape all of the information from all 50 pages of the book listings.
+Well done! In this lesson, you took a look at some methods for traversing and dissecting a web page with beautiful soup! In the upcoming lab, you'll continue to formalize this turning the current script into modularized functions which you can then use to scrape all of the information from all 50 pages of the book listings.
