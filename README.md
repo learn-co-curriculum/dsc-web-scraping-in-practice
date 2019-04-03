@@ -1062,15 +1062,6 @@ As you can see, there's a lot going on in a production level HTML page. Rather t
 
 <img src="images/inspect.png">
 
-
-```python
-ls images
-```
-
-    DOM-model.svg.png  book_img.png       sidebar.png
-    book-section.png   pager.png
-
-
 This will also reveal underlying `divs`, `headers` and other containers the web designers have used to organize their web pages.
 
 <img src="images/book-section.png">
