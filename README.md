@@ -9,7 +9,7 @@ Now that you've gotten a brief introduction to Beautiful Soup and how to select 
 
 You will be able to:
 
-* Load an arbitrary into Beautiful Soup
+* Load an arbitrary web page into Beautiful Soup
 * Use inspect element to find unique identifiers for elements of interest
 * Navigate HTML documents using Beautiful Soup's children and sibling relations
 
