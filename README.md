@@ -21,7 +21,7 @@ import requests
 
 ## Grabbing an HTML Page
 
-To start, here's how to retrieve an arbitrary web page and load its content into Beautiful Soup for parsing. You first use the requests package to pull the html itself and then pass that data to beautiful soup.
+To start, here's how to retrieve an arbitrary web page and load its content into Beautiful Soup for parsing. You first use the requests package to pull the HTML itself and then pass that data to beautiful soup.
 
 
 ```python
@@ -1058,7 +1058,7 @@ soup.prettify
 
 ## Using the Inspect Element Feature
 
-As you can see, there's a lot going on in a production level HTML page. Rather than tediously scrolling through all of this, you'll typically have specific information you're looking to pull from a page. For example, the page you've just loaded is a mock online bookstore used for scraping practice. (As noted in the previous lesson, be careful what you attempt to scrape and at what rate/volume; many websites will quickly blacklist you if you attempt to make too many requests.) For this page, you'll see how to programmatically extract the book names, cover images, and price. Once you have a goal in mind, you can ctrl+click (Windows: right click) on the portion of the page that you're interested in and select inspect element. This will bring up the developer's portion of your web browser and allow you to preview the underlying html code.
+As you can see, there's a lot going on in a production level HTML page. Rather than tediously scrolling through all of this, you'll typically have specific information you're looking to pull from a page. For example, the page you've just loaded is a mock online bookstore used for scraping practice. (As noted in the previous lesson, be careful what you attempt to scrape and at what rate/volume; many websites will quickly blacklist you if you attempt to make too many requests.) For this page, you'll see how to programmatically extract the book names, cover images, and price. Once you have a goal in mind, you can ctrl+click (Windows: right click) on the portion of the page that you're interested in and select inspect element. This will bring up the developer's portion of your web browser and allow you to preview the underlying HTML code.
 
 <img src="images/inspect.png" width="900">
 
@@ -1069,7 +1069,7 @@ This will also reveal underlying `divs`, `headers` and other containers the web 
 
 ## Selecting a Container
 
-While you're eventually looking to select each of the individual books, it's often easier to start with an encapsulating container. In this case, the `section`, displayed above. Once you select this container, you can then make sub-selections within it to find the relevant information you are searching for. In this case, the warning just above the div for the books is easy to identify. You can start by selecting this element and then navigating to the next div element.
+While you're eventually looking to select each of the individual books, it's often easier to start with an encapsulating container. In this case, the `section` displayed above. Once you select this container, you can then make sub-selections within it to find the relevant information you are searching for. In this case, the warning just above the div for the books is easy to identify. You can start by selecting this element and then navigating to the next div element.
 
 
 ```python
@@ -2211,18 +2211,18 @@ df
 
 ## Pagination and URL Hacking
 
-Now that you have successfully scraped one page of books, the next logical step is to extrapolate this to successive pages. In general, the two most common approaches are to search for a button that will take you to the next page or to investigate the structure of the page urls. For example, at the bottom of the page you should see a button like this:
+Now that you have successfully scraped one page of books, the next logical step is to extrapolate this to successive pages. In general, the two most common approaches are to search for a button that will take you to the next page or to investigate the structure of the page URLS. For example, at the bottom of the page you should see a button like this:
 
 <img src="images/pager.png" width = "800">
 
-As you can see, this portion contains a link to the next page of the book listings. What's more, is that you can also see that the next pages are easy to anticipate the url for. They're simply:
+As you can see, this portion contains a link to the next page of the book listings. What's more, is that you can also see that the next pages are easy to anticipate the URL for. They're simply:
 
 * http://books.toscrape.com/catalogue/page-2.html
 * http://books.toscrape.com/catalogue/page-3.html
 * http://books.toscrape.com/catalogue/page-4.html
 * etc. 
 
-In more complex examples, you would simply have to use selections such as those for the title, price, star rating and availability to retrieve the url of the next page. However, in simple cases like this, it is possible to simply hardwire the page urls in a for loop. In the upcoming lab, you'll formalize this knowledge by writing a script to scrape all 50 pages from the site. The pseudo-code will look something like this:  
+In more complex examples, you would simply have to use selections such as those for the title, price, star rating and availability to retrieve the URL of the next page. However, in simple cases like this, it is possible to simply hardwire the page URLs in a for loop. In the upcoming lab, you'll formalize this knowledge by writing a script to scrape all 50 pages from the site. The pseudo-code will look something like this:  
 
 ```python
 df = pd.DataFrame()
