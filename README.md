@@ -3,15 +3,16 @@
 
 ## Introduction
 
-Now that you've gotten a brief introduction to Beautiful Soup and how to select various elements from a web page, its time to practice a hands-on case of scraping a website. You'll start to see that scraping is a dynamic process that involves investigating the web page(s) at hand and developing scripts tailored to those structures.
+Now that you've gotten a brief introduction to Beautiful Soup and how to select various elements from a web page, it's time to practice scraping a website. You'll start to see that scraping is a dynamic process that involves investigating the web page(s) at hand and developing scripts tailored to those structures.
 
 ## Objectives
 
 You will be able to:
 
-* Load an arbitrary web page into Beautiful Soup
-* Use inspect element to find unique identifiers for elements of interest
 * Navigate HTML documents using Beautiful Soup's children and sibling relations
+* Select specific elements from HTML using Beautiful Soup
+* Use regular expressions to extract items with a certain pattern within Beautiful Soup
+* Determine the pagination scheme of a website and scrape multiple pages
 
 
 ```python
@@ -25,8 +26,8 @@ To start, here's how to retrieve an arbitrary web page and load its content into
 
 
 ```python
-html_page = requests.get('http://books.toscrape.com/') #Make a get request to retrieve the page
-soup = BeautifulSoup(html_page.content, 'html.parser') #Pass the page contents to beautiful soup for parsing
+html_page = requests.get('http://books.toscrape.com/') # Make a get request to retrieve the page
+soup = BeautifulSoup(html_page.content, 'html.parser') # Pass the page contents to beautiful soup for parsing
 ```
 
 ## Previewing the Structure
@@ -1074,7 +1075,7 @@ While you're eventually looking to select each of the individual books, it's oft
 
 ```python
 warning = soup.find('div', class_="alert alert-warning")
-warning #Previewing is optional but can help you verify you are selecting what you think you are
+warning # Previewing is optional but can help you verify you are selecting what you think you are
 ```
 
 
@@ -1090,7 +1091,7 @@ Now, you can navigate to the section using the next sibling method. (In actualit
 
 
 ```python
-#This code is a bit brittle but works for now; in general, ask, are you confident that this will work for all pages?
+# This code is a bit brittle but works for now; in general, ask, are you confident that this will work for all pages?
 book_container = warning.nextSibling.nextSibling 
 book_container
 ```
@@ -1661,8 +1662,8 @@ Generally, this is best done with a little trial and error: make a selection, pr
 
 
 ```python
-titles = book_container.findAll('h3') #Make a selection
-titles[0] #Preview the first entry it
+titles = book_container.findAll('h3') # Make a selection
+titles[0] # Preview the first entry it
 ```
 
 
@@ -1711,9 +1712,11 @@ print(len(final_titles), final_titles[:5])
     20 ['A Light in the Attic', 'Tipping the Velvet', 'Soumission', 'Sharp Objects', 'Sapiens: A Brief History of Humankind']
 
 
-## Passing Regex Expressions
+## Passing Regular Expressions
 
-Another useful feature is passing regex expressions into a Find statement. For example, you may have noticed that the star ratings for each of the books are encapsulated within a p tag whose class reads "star-rating ...". Let's take a look at how you could extract these features.
+Another useful feature is passing a regular expression (regex) into a Find statement. A regex is a sequence of characters that is used to search and match specific patterns of text. Think about the find feature of a web browser or text editor. Regex syntax is a bit complicated and you will learn all about it later. For now, try to follow along with the example below keeping in mind that the regex is matching a specific pattern of text.
+
+Going back to our book example, you may have noticed that the star ratings for each of the books are encapsulated within a `p` tag whose class reads "star-rating ...". Let's take a look at how you could extract these features.
 
 
 ```python
@@ -1723,7 +1726,7 @@ import re
 
 ```python
 regex = re.compile("star-rating (.*)")
-book_container.findAll('p', {"class" : regex}) #Initial Trial in developing the script
+book_container.findAll('p', {"class" : regex}) # Initial Trial in developing the script
 ```
 
 
@@ -1893,7 +1896,7 @@ As you can see, even here we have strings whereas integers would probably be a m
 
 
 ```python
-star_dict = {'One': 1, 'Two': 2, 'Three':3, 'Four': 4, 'Five':5} #Manually create a dictionary to translate to numeric
+star_dict = {'One': 1, 'Two': 2, 'Three':3, 'Four': 4, 'Five':5} # Manually create a dictionary to translate to numeric
 star_ratings = [star_dict[s] for s in star_ratings]
 star_ratings
 ```
@@ -1911,7 +1914,7 @@ You're definitely making some progress here! Let's take a look at extracting two
 
 
 ```python
-book_container.findAll('p', class_="price_color") #First preview
+book_container.findAll('p', class_="price_color") # First preview
 ```
 
 
@@ -1942,7 +1945,7 @@ book_container.findAll('p', class_="price_color") #First preview
 
 
 ```python
-prices = [p.text for p in book_container.findAll('p', class_="price_color")] #Keep cleaning it up
+prices = [p.text for p in book_container.findAll('p', class_="price_color")] # Keep cleaning it up
 print(len(prices), prices[:5])
 ```
 
@@ -1951,7 +1954,7 @@ print(len(prices), prices[:5])
 
 
 ```python
-prices = [float(p[1:]) for p in prices] #Removing the pound sign and converting to float
+prices = [float(p[1:]) for p in prices] # Removing the pound sign and converting to float
 print(len(prices), prices[:5])
 ```
 
@@ -1963,7 +1966,7 @@ Hopefully, the process is starting to feel a bit smoother.
 
 ```python
 avails = book_container.findAll('p', class_="instock availability")
-avails[:5] #Preview our selection
+avails[:5] # Preview our selection
 ```
 
 
@@ -2000,7 +2003,7 @@ avails[:5] #Preview our selection
 
 
 ```python
-avails[0].text #Dig a little deeper into the structure
+avails[0].text # Dig a little deeper into the structure
 ```
 
 
@@ -2012,7 +2015,7 @@ avails[0].text #Dig a little deeper into the structure
 
 
 ```python
-avails = [a.text.strip() for a in book_container.findAll('p', class_="instock availability")] #Finalize the selection
+avails = [a.text.strip() for a in book_container.findAll('p', class_="instock availability")] # Finalize the selection
 print(len(avails), avails[:5])
 ```
 
@@ -2211,7 +2214,7 @@ df
 
 ## Pagination and URL Hacking
 
-Now that you have successfully scraped one page of books, the next logical step is to extrapolate this to successive pages. In general, the two most common approaches are to search for a button that will take you to the next page or to investigate the structure of the page URLS. For example, at the bottom of the page you should see a button like this:
+Now that you have successfully scraped one page of books, the next logical step is to extrapolate this to successive pages. In general, the two most common approaches are to search for a button that will take you to the next page or to investigate the structure of the page URLs. For example, at the bottom of the page you should see a button like this:
 
 <img src="images/pager.png" width = "800">
 
@@ -2222,7 +2225,7 @@ As you can see, this portion contains a link to the next page of the book listin
 * http://books.toscrape.com/catalogue/page-4.html
 * etc. 
 
-In more complex examples, you would simply have to use selections such as those for the title, price, star rating and availability to retrieve the URL of the next page. However, in simple cases like this, it is possible to simply hardwire the page URLs in a for loop. In the upcoming lab, you'll formalize this knowledge by writing a script to scrape all 50 pages from the site. The pseudo-code will look something like this:  
+In more complex examples, you would simply have to use selections such as those for the title, price, star rating and availability to retrieve the URL of the next page. However, in simple cases like this, it is possible to simply hardwire the page URLs in a `for` loop. In the upcoming lab, you'll formalize this knowledge by writing a script to scrape all 50 pages from the site. The pseudo-code will look something like this:  
 
 ```python
 df = pd.DataFrame()
@@ -2241,4 +2244,4 @@ for i in range(2,51):
 
 ## Summary 
 
-Well done! In this lesson, you took a look at some methods for traversing and dissecting a web page with beautiful soup! In the upcoming lab, you'll continue to formalize this turning the current script into modularized functions which you can then use to scrape all of the information from all 50 pages of the book listings.
+Well done! In this lesson, you took a look at some methods for traversing and dissecting a web page with Beautiful Soup! You also got some practice selecting specific elements from HTML and scraping multiple pages. In the upcoming lab, you'll continue to formalize this, turning the current script into modularized functions which you can then use to scrape all of the information from all 50 pages of the book listings.
